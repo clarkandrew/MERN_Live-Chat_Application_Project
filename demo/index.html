@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/nicescroll.min.js"></script>
+    <title>Web Programming Demo</title>
+    <link rel="shortcut icon" href="imgs/favicon.ico" type="image/x-icon">
+
+
+
+    <script>
+        var msgHist;
+        var myUser = "User";
+    
+        
+        function sendNewMsg(msg) {
+            var params = "/sendMsg?from=" + myUser + "&date=7%3A45PM&body=" + msg;
+            $.get(params, function (data) {
+              getChatUpdate();
+                 return "Done";
+            });
+        }
+        
+        function getChatUpdate() {
+            $.get("../getMsgs", function (data) {
+
+                //console.log("Run Data: " + data);
+                msgHist = data;
+                update();
+                return data;
+            });
+        }
+
+        setInterval(function () {
+                getChatUpdate();
+            },1000);
+        
+        // scroll chat to bottom & enable nice scroll
+        $(document).ready(function () {
+            
+            
+            
+            
+            $('#chatHist').scrollTop($('#chatHist')[0].scrollHeight);
+
+            $("#chatHist").niceScroll({
+                styler: "fb",
+                cursorcolor: "#494949",
+
+                cursorwidth: "7px",
+                railoffset: true,
+                smoothscroll: true,
+                scrollspeed: 100,
+                zindex: 5,
+                cursoropacitymax: .4,
+                hidecursordelay: 200,
+                autohidemode: "scroll"
+
+
+            });
+
+
+            getChatUpdate();
+//            update();
+            $("#sendBtn").click(function () {
+                var newMsg = $("#newMsg").val();
+//                newMsg = encodeURI(newMsg);
+                $("#newMsg").val("");
+                sendNewMsg(newMsg);
+            });
+            
+            $("#clear").click(function () {
+            
+            
+            $.get("../clearMsgs", function (data) {
+                getChatUpdate();
+            });
+        
+            });
+            
+            $(".rad").click(function () {
+               var val = $('input[name=userType]:checked').val();
+                myUser = val;
+                   getChatUpdate();
+            });
+            
+            
+        });
+    </script>
+
+
+</head>
+
+<!--
+MongoDB
+ExpressJS
+React.JS
+Node.js
+-->
+
+
+
+
+<body>
+    
+    <div id="settingsCont">
+        <div class="rad"><input type="radio" name="userType" checked="checked" value="User"><t>USER</t></div>
+        <div class="setSep">|</div>
+    <div class="rad"><input type="radio" name="userType"  value="Support"><t>SUPPORT</t></div>
+        <div class="setSep">|</div>
+        <a id="clear">CLEAR CHAT</a>
+    </div>
+    
+    
+    
+    <div id="chatContainer">
+        <div id="chatHead">
+            <t><span class="status">●</span> <span id="topText">Have a question?</span></t>
+            <div id="toggleChat" class="closed">▲</div>
+        </div>
+        <div id="chatContent">
+            <div id="chatHist">
+                
+                <!-- Chat data goes here -->
+                <!--#####################################################################-->
+
+
+                <!--#####################################################################-->
+                <div class="msgDiv"></div>
+            </div>
+            <div class="contSep"></div>
+            <div id="chatNewMsg">
+                <textarea id="newMsg" placeholder="Enter your message here"></textarea>
+                
+                <button id="sendBtn"><img src="imgs/send.png"></button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+    $("#chatHead").click(function () {
+
+        $('#chatHist').scrollTop($('#chatHist')[0].scrollHeight);
+        if ($("#chatContainer").height() == 50) {
+            $("#toggleChat").text("X");
+
+
+            $("#topText").text("Let's chat!");
+            $("#chatContainer").animate({
+                    height: 500
+                },
+                'fast',
+                'swing',
+                function () {
+
+                });
+
+        } else {
+            $("#toggleChat").text('▲');
+
+            $("#topText").text("Have a question?");
+            $("#chatContainer").animate({
+                    height: 50
+                },
+                'fast',
+                'swing',
+                function () {
+
+                });
+        }
+
+
+
+
+    });
+</script>
+
+</html>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+
+<script type="text/babel">
+    
+
+
+    function update() { 
+       
+        var msgs = [];
+
+    var uniqueID = 0;
+     var opposUser = "Support";  
+        
+        if(msgHist.length > 0) {
+    msgHist.forEach(function(entry) {
+  uniqueID = uniqueID + 1;
+    var from = entry["from"];
+    var date = entry["data"];
+    var msgBody = entry["body"];
+    var msgClass;
+     
+        
+    
+        
+    if(myUser == from) {
+        msgClass = "message received";
+        from = "You";
+    } else {
+        msgClass = "message sent";   
+    }
+        
+        msgs.push(<div key={uniqueID} className="msgDiv"></div>);
+          uniqueID = uniqueID + 1;
+        msgs.push(
+            <div key={uniqueID} className={msgClass}>
+                <div className="msgHead"><span className="personStatus">● </span>{from}<span className="time"> | {date}</span></div>
+                <div className="msgContent">{msgBody}</div>
+            </div>
+                 );
+});
+        } else {
+            if(myUser == "Support") {
+        opposUser = "User";
+    }
+            
+            msgs.push(<div className="blankMsg" key="0"><t>You are now connected to {opposUser}</t></div>);
+        }
+
+var Pagination = React.createClass({
+    render: function(){
+        return(
+            <div id="chatHistContent">
+                {msgs}
+            </div>
+        );
+    }
+});
+        
+        
+    
+    ReactDOM.render(
+        <Pagination />, 
+        document.getElementById('chatHist') ); 
+    }
+</script>

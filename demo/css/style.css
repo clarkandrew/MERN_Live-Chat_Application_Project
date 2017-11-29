@@ -1,0 +1,253 @@
+html,
+body {
+    height: 100%;
+    background-color: #EAEAEA;
+}
+
+body {
+    background-image: url(../imgs/bg.jpg);
+    padding: 0px;
+    margin: 0px;
+}
+
+#chatContainer {
+    position: absolute;
+    bottom: 0px;
+    right: 20px;
+    width: 400px;
+        height: 50px;
+/*    height: 500px;*/
+    border-radius: 3px 3px 0px 0px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    font-family: 'roboto';
+    overflow: hidden;
+
+}
+
+.personStatus {
+    color: #39CB74;
+}
+
+#chatHead {
+    height: 50px;
+    width: 100%;
+    background-color: #323841;
+    color: white;
+    font-size: 25px;
+}
+
+#chatHead t {
+    padding-left: 20px;
+    line-height: 50px;
+}
+
+#chatHead t .status {
+    color: #2ecc71;
+    font-weight: 300;
+}
+
+#toggleChat {
+    float: right;
+    height: 50px;
+    line-height: 50px;
+    padding-right: 14px;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.closed {
+    opacity: .5;
+    cursor: pointer;
+    transition: opacity .2s ease-in-out;
+    -moz-transition: opacity .2s ease-in-out;
+    -webkit-transition: opacity .2s ease-in-out;
+}
+
+.closed:hover {
+    opacity: 1;
+}
+
+#chatContent {
+    height: calc(100% - 50px);
+    width: 100%;
+    background-color: white;
+    padding: 10px 20px 10px 20px;
+    box-sizing: border-box;
+
+}
+
+#chatHist {
+    height: calc(100% - 105px);
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    overflow: hidden;
+    overflow-y: scroll;
+    background-color: rgba(255, 255, 255, .3);
+    /*    border: 1px solid black;*/
+}
+
+.contSep {
+    width: calc(100% + 20px);
+    height: 1px;
+    background-color: rgba(0, 0, 0, .1);
+    margin-left: -10px;
+    margin-top: 10px;
+}
+
+#chatNewMsg {
+    margin-top: 10px;
+    height: 80px;
+    width: calc(100%);
+}
+
+#chatNewMsg button {
+    float: right;
+    height: 80px;
+    width: 80px;
+    background-color: rgba(0, 0, 0, .08);
+    color: #323841;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color .2s ease-in-out;
+    -moz-transition: background-color .2s ease-in-out;
+    -webkit-transition: background-color .2s ease-in-out;
+    box-sizing: border-box;
+    border-radius: 3px;
+  border: none;
+}
+
+
+#chatNewMsg button:hover {
+    transition: background-color .1s ease-in-out;
+    -moz-transition: background-color .1s ease-in-out;
+    -webkit-transition: background-color .1s ease-in-out;
+    background-color: rgba(0, 0, 0, .2);
+
+}
+
+#chatNewMsg button img {
+    width: 30px;
+    padding-right: 3px;
+    padding-top: 3px;
+    opacity: .6;
+}
+
+#chatNewMsg textarea {
+    background-color: rgba(0, 0, 0, .05);
+    float: left;
+    height: 80px;
+    width: calc(100% - 90px);
+    padding: 5px 8px;
+    margin: 0px;
+    font-size: 15px;
+    resize: none;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.message {
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    box-sizing: border-box;
+}
+
+.msgDiv {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.msgContent {
+    /*    background-color: green;*/
+    display: inline-block;
+}
+
+.msgHead {
+    font-weight: 500;
+}
+
+.sent {
+    background-color: rgba(52, 152, 219, .05);
+}
+
+.time {
+    opacity: .4;
+}
+
+
+#settingsCont {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    width: 400px;
+    height: 40px;
+    background-color: rgba(0,0,0,.2);
+    overflow: hidden;
+    text-align: center;
+    
+        font-family: 'roboto';
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
+    opacity: .3;
+    border-radius: 0px 0px 5px 5px;
+    transition: opacity .2s ease-in-out;
+    -moz-transition: opacity .2s ease-in-out;
+    -webkit-transition: opacity .2s ease-in-out;
+    
+   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+#settingsCont:hover {
+    opacity: 1;
+    
+}
+
+#settingsCont a {
+
+    transition: opacity .2s ease-in-out;
+    -moz-transition: opacity .2s ease-in-out;
+    -webkit-transition: opacity .2s ease-in-out;
+}
+
+#settingsCont a:hover {
+    opacity: .5;
+   
+}
+
+.rad {
+    display: inline-block;
+
+    padding: 0px 5px;
+}
+.rad t {
+    padding-left: 5px;
+}
+
+.rad input {
+        cursor: pointer;
+}
+
+
+.setSep {
+    display: inline-block;
+
+    padding: 8px 5px;
+}
+
+#settingsCont #clear {
+    cursor: pointer;
+}
+
+.blankMsg {
+    margin: auto;
+    left: 0;
+    right: 0;
+
+    text-align: center;
+    opacity: .5;
+}
